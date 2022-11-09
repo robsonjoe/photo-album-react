@@ -38,7 +38,7 @@ const App = () => {
     // store received JSON samples array in state variable since samples is used heavily in JSX of App and SelectedView
     setPhotos(result.photos);  
     setIndex(index);
-     setLoading(false);
+    setLoading(false);
   };
   // return error
   const onError = (message:string) => console.log("*** Error has occured during AJAX data transmission: " + message);
@@ -50,11 +50,10 @@ const App = () => {
   const [showThumbs, setShowThumbs] = React.useState<boolean>(false);
   const [showAddComments, setShowAddComments] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
-  // const [selected, setSelected] = React.useState<Photo>(photos[0]);
   const [index, setIndex] = React.useState<number>(0);
   const [prevEnabled, setPrevEnabled] = React.useState<boolean>(false);
   const [nextEnabled, setNextEnabled] = React.useState<boolean>(true);
-  // const [disable, setDisable] = React.useState(true);
+  
  
   //add use effevct to set buttons when index changes
   React.useEffect(() => {
@@ -94,7 +93,7 @@ const App = () => {
                 <button className="intro__button rounded-md mr-1 mb-1 p-2 text-white bg-[#e8b74e]" onClick={onJumpClick}>Jump</button>
                 <button className="intro__button rounded-md mr-1 mb-1 p-2 text-white bg-[#e8b74e]" onClick={onCommentClick}>Comment</button>
                 
-  {  (photos.length > 0) ?
+       {  (photos.length > 0) ?
 
                 <div className="photoCount"> Photo {(index +1)} of {photos.length}</div>
 
