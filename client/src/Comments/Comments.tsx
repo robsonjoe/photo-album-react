@@ -22,9 +22,8 @@ const RETRIEVE_SCRIPT:string = "http://localhost/retrieveAlbum.php?count=11";
           
           
           if ((e.target.txtAuthor.value === "" ) || (e.target.txtComment.value === "")) {         
-            
-            
-            return alert("both fields need to be filled in");
+                   
+            return alert("both NAME and COMMENT fields need to be filled in");
           }else{ 
             
 

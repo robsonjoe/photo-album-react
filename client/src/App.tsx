@@ -13,51 +13,57 @@ const App = () => {
 
 
   // ---------------------------------------------- event handers
-
+  // click jump button 
       const onJumpClick = (e:any) => {
         setShowThumbs(!showThumbs);
     };
-     
+  // click comment button   
     const onCommentClick = (e:any) => {
         setShowAddComments(!showAddComments);
     };
-
+// click next button
     const getNext = () => {
 
       if (index ==  (photos.length -1)) {
-        console.log(index)
+        
         setPrevEnabled(true);
         setNextEnabled(false);
+        console.log(index)
       }else {
         console.log(index)
       setPrevEnabled(true);
       setNextEnabled(true);
       setIndex (index +1);
+      console.log("innexthere" + index)   
       }
   };
        
+  // click prev button
   const getPrev = () => {
-    if (index == 0) {
-
-      console.log(index)
+    if (index == 0) {  
       setPrevEnabled(false);
       setNextEnabled(true);
+      console.log("zero" + index)
     }else {
-      console.log(index)
+      
       setPrevEnabled(true);
       setNextEnabled(true);
       setIndex (index -1);
+      console.log("inprevhere" + index)
+      //HandleOnChange();
     }
   };
 
+  // load photo data to array
   const onResponse = (result:PhotoData) => {
     // data received from Web API
     console.table(result);
     // store received JSON samples array in state variable since samples is used heavily in JSX of App and SelectedView
     setPhotos(result.photos);  
+    setIndex(index);
      setLoading(false);
   };
-
+  // return error
   const onError = (message:string) => console.log("*** Error has occured during AJAX data transmission: " + message);
 
   // ---------------------------------------------- state variables
@@ -73,8 +79,17 @@ const App = () => {
   const [nextEnabled, setNextEnabled] = React.useState<boolean>(true);
   // const [disable, setDisable] = React.useState(true);
  
-  
 
+    // use effect for index
+  React.useEffect(() => {
+    
+    console.log("component updated");
+    setIndex(index);
+    console.log("component update:" + index);
+  }, [index]);  
+
+
+  //use effect for JSON data
   React.useEffect(() => {
     // component mounted - loading JSON data when root component mounts
     getJSONData(RETRIEVE_SCRIPT, onResponse, onError); 
@@ -85,7 +100,6 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header px-5">
-      {/* <div className="header flex flex-col flex-no-wrap  p-5"> */}
      
      <div className="headertitle text-5xl">_Photo.Album </div>
      <div className="headersubtitle text-xs pt-5 pl-5">V2.0 React/Tailwind </div>
@@ -101,8 +115,8 @@ const App = () => {
                 <div className="photoCount"> Photo {(index +1)} of {photos.length}</div>
             </div>
         </div>
-
-      <Jump  photos = {photos} showThumbs = {showThumbs} setIndex={setIndex} /> 
+      
+      <Jump  photos = {photos} showThumbs = {showThumbs} setIndex={setIndex} index ={index} setPrevEnabled ={setPrevEnabled} setNextEnabled={setNextEnabled}/> 
       
       <Comments showAddComments = {showAddComments} photos = {photos} index={index} setPhotos = {setPhotos}  setLoading ={setLoading} comments = {comments}/>
    

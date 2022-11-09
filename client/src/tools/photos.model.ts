@@ -27,18 +27,17 @@ export interface CommentProps {
         comments: Comment[];
 
 }
-
-
 export interface JumpProps {   
      showThumbs:boolean;
      photos: Photo[];
      setIndex:Function;
-
+     index:number;
+     setPrevEnabled:Function;
+     setNextEnabled:Function;
 }
 
 export interface ContentProps {
- 
-    photos: Photo[];
+   photos: Photo[];
     index:number;
     comments: Comment[];
 }
