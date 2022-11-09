@@ -5,9 +5,8 @@ import Comments from "./Comments/Comments";
 import LoadingOverlay from "./LoadingOverlay/LoadingOverlay";
 import { getJSONData } from "./tools/Toolkit";
 import { PhotoData, Photo ,Comment} from "./tools/photos.model";
-import logo from './logo.svg'
 
- const RETRIEVE_SCRIPT:string = "http://localhost/retrieveAlbum.php?count=11";
+const RETRIEVE_SCRIPT:string = "http://localhost/retrieveAlbum.php?count=11";
 
 const App = () => {
 
@@ -21,7 +20,7 @@ const App = () => {
     const onCommentClick = (e:any) => {
         setShowAddComments(!showAddComments);
     };
-// click next button add 1 to index
+ // click next button add 1 to index
     const getNext = () => {
      setIndex (index +1);   
   };
@@ -46,7 +45,6 @@ const App = () => {
   // ---------------------------------------------- state variables
 
   const [photos, setPhotos] = React.useState<Photo[]>([]);
-  const [comments, setComments] = React.useState<Comment[]>([]);
   const [showThumbs, setShowThumbs] = React.useState<boolean>(false);
   const [showAddComments, setShowAddComments] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -93,13 +91,11 @@ const App = () => {
                 <button className="intro__button rounded-md mr-1 mb-1 p-2 text-white bg-[#e8b74e]" onClick={onJumpClick}>Jump</button>
                 <button className="intro__button rounded-md mr-1 mb-1 p-2 text-white bg-[#e8b74e]" onClick={onCommentClick}>Comment</button>
                 
-       {  (photos.length > 0) ?
-
-                <div className="photoCount"> Photo {(index +1)} of {photos.length}</div>
-
-              :
-              <div className="photoCount"> Photo 0 of 0 </div>
-  }
+              {  (photos.length > 0) ?
+                      <div className="photoCount"> Photo {(index +1)} of {photos.length}</div>
+                      :
+                      <div className="photoCount"> Photo 0 of 0 </div>
+               }
 
             </div>
         </div>
@@ -108,7 +104,7 @@ const App = () => {
       
       <Comments showAddComments = {showAddComments} photos = {photos} index={index} setPhotos = {setPhotos}  setLoading ={setLoading} setShowAddComments = {setShowAddComments}/>
    
-      <Content  photos = {photos} index={index} comments={comments}   />
+      <Content  photos = {photos} index={index}  />
      
     
        

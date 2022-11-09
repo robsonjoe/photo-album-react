@@ -17,7 +17,6 @@ export interface Comment {
     author:  string;
 }
 
-
 export interface CommentProps {
         showAddComments:boolean;  
         photos: Photo[];
@@ -39,7 +38,6 @@ export interface JumpProps {
 export interface ContentProps {
    photos: Photo[];
     index:number;
-    comments: Comment[];
 }
 
 export interface LoadingProps {

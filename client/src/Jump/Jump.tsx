@@ -1,7 +1,7 @@
 import React from 'react';
 import {  JumpProps, Photo} from '../tools/photos.model';
 
-    const Jump = ({photos, showThumbs ,setIndex, index, setPrevEnabled, setNextEnabled }:JumpProps )  => {
+  const Jump = ({photos, showThumbs ,setIndex, index, setPrevEnabled, setNextEnabled }:JumpProps )  => {
 
     // ------------------------------------------- event handlers
     // click on picture logic
@@ -9,7 +9,7 @@ import {  JumpProps, Photo} from '../tools/photos.model';
           setIndex(Number(e.target.id));
       };
   
-         // use effect for index
+      // use effect for index
       React.useEffect(() => {
         if (index == 0) {
           setPrevEnabled(false);
