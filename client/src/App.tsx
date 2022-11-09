@@ -21,37 +21,14 @@ const App = () => {
     const onCommentClick = (e:any) => {
         setShowAddComments(!showAddComments);
     };
-// click next button
+// click next button add 1 to index
     const getNext = () => {
-
-      if (index ==  (photos.length -1)) {
-        
-        setPrevEnabled(true);
-        setNextEnabled(false);
-        console.log(index)
-      }else {
-        console.log(index)
-      setPrevEnabled(true);
-      setNextEnabled(true);
-      setIndex (index +1);
-      console.log("innexthere" + index)   
-      }
+     setIndex (index +1);   
   };
        
-  // click prev button
+  // click prev button seubtract 1 from index
   const getPrev = () => {
-    if (index == 0) {  
-      setPrevEnabled(false);
-      setNextEnabled(true);
-      console.log("zero" + index)
-    }else {
-      
-      setPrevEnabled(true);
-      setNextEnabled(true);
       setIndex (index -1);
-      console.log("inprevhere" + index)
-      //HandleOnChange();
-    }
   };
 
   // load photo data to array
@@ -75,17 +52,22 @@ const App = () => {
   const [loading, setLoading] = React.useState<boolean>(true);
   // const [selected, setSelected] = React.useState<Photo>(photos[0]);
   const [index, setIndex] = React.useState<number>(0);
-  const [prevEnabled, setPrevEnabled] = React.useState<boolean>(true);
+  const [prevEnabled, setPrevEnabled] = React.useState<boolean>(false);
   const [nextEnabled, setNextEnabled] = React.useState<boolean>(true);
   // const [disable, setDisable] = React.useState(true);
  
-
-    // use effect for index
+  //add use effevct to set buttons when index changes
   React.useEffect(() => {
-    
-    console.log("component updated");
-    setIndex(index);
-    console.log("component update:" + index);
+    if (index == 0) {
+      setPrevEnabled(false);
+      setNextEnabled(true);
+    } else if ( index == photos.length -1) {
+      setPrevEnabled(true);
+      setNextEnabled(false);
+    } else {
+      setNextEnabled(true);
+      setPrevEnabled(true);
+    }
   }, [index]);  
 
 
@@ -112,13 +94,20 @@ const App = () => {
                 <button className="intro__button rounded-md mr-1 mb-1 p-2 text-white bg-[#e8b74e]" onClick={onJumpClick}>Jump</button>
                 <button className="intro__button rounded-md mr-1 mb-1 p-2 text-white bg-[#e8b74e]" onClick={onCommentClick}>Comment</button>
                 
+  {  (photos.length > 0) ?
+
                 <div className="photoCount"> Photo {(index +1)} of {photos.length}</div>
+
+              :
+              <div className="photoCount"> Photo 0 of 0 </div>
+  }
+
             </div>
         </div>
-      
+
       <Jump  photos = {photos} showThumbs = {showThumbs} setIndex={setIndex} index ={index} setPrevEnabled ={setPrevEnabled} setNextEnabled={setNextEnabled}/> 
       
-      <Comments showAddComments = {showAddComments} photos = {photos} index={index} setPhotos = {setPhotos}  setLoading ={setLoading} comments = {comments}/>
+      <Comments showAddComments = {showAddComments} photos = {photos} index={index} setPhotos = {setPhotos}  setLoading ={setLoading} setShowAddComments = {setShowAddComments}/>
    
       <Content  photos = {photos} index={index} comments={comments}   />
      

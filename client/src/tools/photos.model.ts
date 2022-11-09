@@ -24,7 +24,7 @@ export interface CommentProps {
         index:number;
         setPhotos: Function;
         setLoading: Function;
-        comments: Comment[];
+        setShowAddComments: Function;
 
 }
 export interface JumpProps {   

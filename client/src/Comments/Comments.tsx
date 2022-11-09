@@ -9,24 +9,28 @@ const RETRIEVE_SCRIPT:string = "http://localhost/retrieveAlbum.php?count=11";
 
 
 // const Content = ({ orders, toppings, notes, visible }:ContentProps) => {
-  const Comments = ({ showAddComments, photos, index, setPhotos, setLoading, comments }:CommentProps) => {
+  const Comments = ({ showAddComments, photos, index, setPhotos, setLoading, setShowAddComments }:CommentProps) => {
     
-  // const [okEnabled, setOkEnabled] = React.useState<boolean>(false);
+    // hide comments  section when cancelled
+    const cancelComments = (e:any) => {
+      setShowAddComments(false);
+  };
  
+ // send comments to database when form submitted 
 
         const sendComment = (e:any) => {
-      
+          
           e.preventDefault();
-
+          setLoading(true);
           console.log ("here");
           
-          
+          //check if both text fields are filled in 
           if ((e.target.txtAuthor.value === "" ) || (e.target.txtComment.value === "")) {         
-                   
-            return alert("both NAME and COMMENT fields need to be filled in");
+          //returns popup message
+            return alert("Both NAME and COMMENT fields need to be filled in");
           }else{ 
             
-
+         // send comments to database 
          console.log("click" +  photos[index].id)
 
           let sendJSON = {
@@ -40,26 +44,22 @@ const RETRIEVE_SCRIPT:string = "http://localhost/retrieveAlbum.php?count=11";
         let sendString = JSON.stringify(sendJSON);
       
        sendJSONData(SUBMIT_SCRIPT, sendString, onSubmitResponse, onError);   
-
+       //resets fields
        e.target.reset();
-
+       //hides comment area
+       setShowAddComments (false);
           };
-
-
         };
           const onSubmitResponse = () => {
-            // data received from Web API
-            
+            // get updated data from database           
             getJSONData(RETRIEVE_SCRIPT, onResponse, onError); 
-            // store received JSON samples array in state variable since samples is used heavily in JSX of App and SelectedView
-            // setPhotos(result.photos);  
-            //  setLoading(false);
+    
           };
-
+          // get reload data 
           const onResponse = (result:PhotoData) => {
-            // data received from Web API
+            // data received from DB
             console.table(result);
-            // store received JSON samples array in state variable since samples is used heavily in JSX of App and SelectedView
+            // store received JSON samples array in state variable 
             setPhotos(result.photos);  
              setLoading(false);
           };
@@ -91,7 +91,7 @@ const RETRIEVE_SCRIPT:string = "http://localhost/retrieveAlbum.php?count=11";
         </div>
         <div className="commentForm__buttons">
           <button className="intro__button rounded-md mr-2 mb-2 p-2  text-white bg-[#568fea] disabled:opacity-50" type="submit">OK</button>
-          <button className="intro__button rounded-md mr-2 mb-2 p-2  text-white bg-[#568fea]" type="reset">Cancel</button>
+          <button className="intro__button rounded-md mr-2 mb-2 p-2  text-white bg-[#568fea]" onClick = {cancelComments} type="reset">Cancel</button>
         </div>
         </div>
         </form>

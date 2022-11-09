@@ -7,16 +7,22 @@ import {  JumpProps, Photo} from '../tools/photos.model';
     // click on picture logic
     const onClickPic = (e:any) => {
           setIndex(Number(e.target.id));
-          if (index == 0) {
-            setPrevEnabled(false);
-          } else if ( index == photos.length -1) {
-            setNextEnabled(false);
-          } else {
-            setNextEnabled(true);
-            setPrevEnabled(true);
-          }
       };
   
+         // use effect for index
+      React.useEffect(() => {
+        if (index == 0) {
+          setPrevEnabled(false);
+          setNextEnabled(true);
+        } else if ( index == photos.length -1) {
+          setPrevEnabled(true);
+          setNextEnabled(false);
+        } else {
+          setNextEnabled(true);
+          setPrevEnabled(true);
+        }
+      }, [index]);  
+
     return (
         <div className=" ">
                      
